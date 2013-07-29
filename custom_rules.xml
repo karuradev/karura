@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+============== GPL License ==============
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+
+============== Commercial License==============
+https://github.com/karuradev/licenses/blob/master/toc.txt
+ -->
+<project name="pre_process_code" default="generate-karura">
+	<property name="out.dir" value="bin" />
+	<property file="project.properties" />
+	<property file="local.properties" />
+
+	<target name="generate-karura" depends="-post-build" />
+
+	<target name="-post-build">
+		<echo message="-----------------------------------" />
+		<echo message="Generating karura.js" />
+		<echo message="-----------------------------------" />
+		<mkdir dir="${out.dir}/autogen" />
+		<condition property="karura.jar.path" value="${out.dir}/karura.jar">
+			<available file="${out.dir}/karura.jar" />
+		</condition>
+		<property name="karura.jar.path" value="${out.dir}/classes.jar" />
+		<basename property="karura.jar" file="${karura.jar.path}" />
+
+		<path id="app.classpath">
+			<pathelement location="${sdk.dir}/platforms/${target}/android.jar" />
+			<pathelement location="${karura.jar.path}" />
+		</path>
+
+		<javac destdir="${out.dir}/autogen" debug="on" source="1.6">
+			<src path="${basedir}/autogen" />
+			<include name="**" />
+
+			<classpath>
+				<path refid="app.classpath" />
+			</classpath>
+		</javac>
+
+		<jar destfile="${out.dir}/autogen.jar" basedir="${out.dir}/autogen">
+			<manifest>
+				<attribute name="Main-Class" value="com.karura.autogen.Main" />
+				<attribute name="Class-Path" value="${sdk.dir}/platforms/${target}/android.jar ${karura.jar}" />
+			</manifest>
+		</jar>
+
+		<java jar="${out.dir}/autogen.jar" fork="true" failonerror="true">
+			<arg value="${karura.jar.path}" />
+			<arg value="res/xml/config.xml"/>
+            <arg value="assets/karura/js/framework" />
+			<arg value="true" />
+		</java>
+	</target>
+
+</project>

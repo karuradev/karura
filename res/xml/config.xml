@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<config>
+
+ <framework>
+
+  <!-- name for the framework -->
+  <name value="karura"/>
+  <!-- framework version -->
+  <version value="1.0"/>
+
+  <!-- origin value can be either a domain name, a valid regular expression or * When the value of origin is set to *, means you can browse to pretty much 
+   anything -->
+  <access origin="*" subdomains="true"/>
+
+  <!-- controls whether the default activity title should be shown -->
+  <no_activity_title value="false"/>
+  
+  <!-- controls whether the activity will be rendered on a full screen -->
+  <full_screen value="false"/>
+
+  <!-- Specifies the log level for the application, valid values are: 1. info 2. debug 3. error 4. warning -->
+  <log level="info"/>
+
+  <!-- entry point page for the application -->
+  <homeurl src="file:///android_asset/karura/index.html"/>
+
+  <!-- List of urls for the whitelist -->
+  <whitelist name="whitelisted_urls">
+   <item src="http://microsoft.com" subdomains="false"/>
+  </whitelist>
+
+  <!-- please dont remove this entry, you can add more entries like this in this file in case you add plugins in your package paths -->
+  <plugin-path package="com.karura.framework.plugins"/>
+  <!-- uncomment these lines and change the package to your package which contains the plugins -->
+  <!-- <plugin-path src="com.yourpackage.plugins" /> -->
+ </framework>
+
+ <module name="_some_module">
+  <preference name="_some_pref" value="_some_value"/>
+ </module>
+
+</config>

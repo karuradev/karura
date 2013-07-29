@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<resources>
+
+    <string name="title_dialog_alert">Alert</string>
+    <string name="title_dialog_confirm">Confirm</string>
+    <string name="lbl_loading">Loading file..</string>
+    <string name="lbl_dummy_app_name">Karura Framework</string>
+    <string name="lbl_dummy_copyright_notice">Geoxies, LLC.</string>
+    <string name="msg_error_initializing">Framework could not be initialzied.</string>
+
+</resources>
